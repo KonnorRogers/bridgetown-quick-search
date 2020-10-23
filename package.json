@@ -4,6 +4,10 @@
   "main": "frontend/javascript/index.js",
   "module": "frontend/javascript/index.js",
   "exports": {
+    ".": {
+      "browser": "./frontend/index.js",
+      "import": "./frontend/index.js"
+    },
     "./dist": {
       "browser": "./frontend/dist/index.js",
       "import": "./frontend/dist/index.js"
