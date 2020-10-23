@@ -3,6 +3,11 @@
   "version": "1.0.3",
   "main": "frontend/javascript/index.js",
   "module": "frontend/javascript/index.js",
+  "keywords": [
+    "search",
+    "bridgetown"
+  ],
+  "types": "./index.d.ts",
   "exports": {
     ".": {
       "browser": "./frontend/index.js",
@@ -25,6 +30,7 @@
     "frontend"
   ],
   "scripts": {
+    "test": "package-check",
     "prepare": "npm run build",
     "prepack": "npm run build",
     "build": "babel ./frontend/javascript --out-dir ./frontend/dist"
@@ -39,5 +45,6 @@
     "lunr": "^2.3.8"
   },
   "devDependencies": {
+    "@skypack/package-check": "^0.2.1"
   }
 }
