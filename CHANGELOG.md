@@ -1,6 +1,6 @@
 # Changelog
 
-## 3.9.0
+## 3.9.0 - 05/25/2024
 
 - feat: add `content`.
 - fix: No longer always use `"*"` for alwaysShowResults, it has significant slow downs.
