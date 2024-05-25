@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.9.0
+
+- feat: add `content`.
+- fix: No longer always use `"*"` for alwaysShowResults, it has significant slow downs.
+- dependencies: update to `ninja-keys@1.3.0`
+
 ## 3.8.0
 
 - feat: Allow different endpoints via `endpoint` attribute
