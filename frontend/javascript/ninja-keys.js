@@ -10,7 +10,7 @@ import SearchEngine from "./search_engine.js"
  */
 
 /**
- * @typedef {CustomEvent<{search: string, actions: Array<import("konnors-ninja-keys").INinjaAction>}>} NinjaChangeEvent
+ * @typedef {CustomEvent<{search: string, actions: Array<import("konnors-ninja-keys").NinjaAction>}>} NinjaChangeEvent
  */
 
 /**
@@ -97,14 +97,14 @@ export class BridgetownNinjaKeys extends NinjaKeys {
     ]
   }
 
-	/**
-	 * @param {string} query
-	 * @param {number} [maxResults=10]
-	 */
-  showResultsForQuery(query, maxResults = 100) {
+  /**
+   * @param {string} query
+   * @param {number} [maxResults=10]
+   */
+  showResultsForQuery(query, maxResults = 10) {
     this.latestQuery = query
     if (this.alwaysShowResults === true || (query && query.length >= 1)) {
-      const results = this.__searchEngine.performSearch(query || "*", this.snippetLength).slice(0, maxResults)
+      const results = this.__searchEngine.performSearch(query, this.snippetLength).slice(0, maxResults)
 
       /** @type {import("konnors-ninja-keys").INinjaAction[]} */
       const actions = []
@@ -143,7 +143,7 @@ export class BridgetownNinjaKeys extends NinjaKeys {
       title,
       section: categories,
       href: url,
-      // content
+      content
     }
   }
 }
