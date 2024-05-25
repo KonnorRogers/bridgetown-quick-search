@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.9.1 - 05/25/2024
+
+- dependencies: update to `ninja-keys@1.3.1`
+
 ## 3.9.0 - 05/25/2024
 
 - feat: add `content`.
