@@ -1,14 +1,18 @@
 # Changelog
 
+## 3.9.2 - 05/25/2024
+
+- dependencies: update to `ninja-keys@1.13.2`
+
 ## 3.9.1 - 05/25/2024
 
-- dependencies: update to `ninja-keys@1.3.1`
+- dependencies: update to `ninja-keys@1.13.1`
 
 ## 3.9.0 - 05/25/2024
 
 - feat: add `content`.
 - fix: No longer always use `"*"` for alwaysShowResults, it has significant slow downs.
-- dependencies: update to `ninja-keys@1.3.0`
+- dependencies: update to `ninja-keys@1.13.0`
 
 ## 3.8.0
 
