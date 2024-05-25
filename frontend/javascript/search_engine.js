@@ -41,7 +41,7 @@ class SearchEngine {
         .split(' ')
         .map((term, index, arr) => `${term}${index === arr.length - 1 ? `* ${term}~1` : '~1'}`)
         .join(' ');
-      const matches = hasQuery ? this.index.search(`${query} ${searchTokens}`) : this.index.search(`"*" ${searchTokens}`);
+      const matches = hasQuery ? this.index.search(`${query} ${searchTokens}`) : [];
 
       const hasResults = matches?.length > 0;
 
