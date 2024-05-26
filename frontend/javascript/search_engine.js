@@ -33,7 +33,15 @@ class SearchEngine {
     this.indexData = indexData
   }
 
-  performSearch(query, snippetLength = null) {
+  /**
+   * @param {string} query
+   * @param {number} [snippetLength=300]
+   * @param {boolean} [highlight=true] - if true, will add `<mark>` around elements.
+   */
+  performSearch(query, snippetLength = 300, highlight = true) {
+    if (highlight == null) { highlight = true }
+    console.log(highlight)
+
     if (this.index) {
       this.query = query
       const hasQuery = query.trim().length > 0;
@@ -48,11 +56,15 @@ class SearchEngine {
       if (hasResults) {
         return matches.map(result => {
           const item = this.indexData.find(item => item.id == result.ref)
-          const contentPreview = this.previewTemplate(item.content, snippetLength)
-          const titlePreview = this.previewTemplate(item.title) + `<!--(${result.score})-->`
+
+          const contentPreview = this.previewTemplate(item.content, snippetLength, highlight)
+          let titlePreview = this.previewTemplate(item.title, snippetLength, highlight)
+
+          if (highlight === true) { titlePreview += `<!-- (${result.score}) -->` }
 
           return {
             id: item.id.trim(),
+            score: result.score,
             title: item.title.trim(),
             collection: item.collection,
             content: item.content.trim(),
@@ -70,9 +82,13 @@ class SearchEngine {
     }
   }
 
-  previewTemplate(text, length) {
-    if (length == null)
-      length = 300
+  /**
+   * @param {string} text
+   * @param {number} [length=300]
+   * @param {boolean} [highlight=true]
+   */
+  previewTemplate(text, length = 300, highlight = true) {
+    if (length == null) { length = 300 }
     const padding = length / 2
     let output
 
@@ -101,14 +117,16 @@ class SearchEngine {
       output = output + "…"
     }
 
-    this.query.toLowerCase().split(" ").forEach(word => {
-      if (word != "") {
-        output = output.replace(
-          new RegExp(`(${word.replace(/[\.\*\+\(\)]/g, "")})`, "ig"),
-          `<strong>$1</strong>`
-        )
-      }
-    })
+    if (highlight) {
+      this.query.toLowerCase().split(" ").forEach(word => {
+        if (word != "") {
+          output = output.replace(
+            new RegExp(`(${word.replace(/[\.\*\+\(\)]/g, "")})`, "ig"),
+            `<strong>$1</strong>`
+          )
+        }
+      })
+    }
 
     return output
   }

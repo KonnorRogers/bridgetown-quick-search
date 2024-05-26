@@ -1,5 +1,10 @@
 # Changelog
 
+## 3.10.0 - 05/26/2024
+
+- fix(ninja-keys): `snippet-length` attribute was not being read properly.
+- fix(ninja-keys): `heading` and `preview` are now properly used that respect snippetLength instead of `title` and `content` respectively.
+
 ## 3.9.2 - 05/25/2024
 
 - dependencies: update to `ninja-keys@1.13.2`

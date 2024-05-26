@@ -19,7 +19,7 @@ import SearchEngine from "./search_engine.js"
 export class BridgetownNinjaKeys extends NinjaKeys {
   static baseName = "bridgetown-ninja-keys"
   static properties = Object.assign(NinjaKeys.properties, {
-		snippetLength: { attribute: "snippet-length", state: true, type: Number },
+		snippetLength: { attribute: "snippet-length", type: Number },
 		alwaysShowResults: { attribute: "always-show-results", reflect: true, type: Boolean },
 		endpoint: { reflect: true },
 		results: { state: true, type: Array },
@@ -91,10 +91,7 @@ export class BridgetownNinjaKeys extends NinjaKeys {
 
   createData () {
     this.results = this.showResultsForQuery(this._search)
-    return [
-      ...this.staticData,
-      ...this.results,
-    ]
+    return this.staticData.concat(this.results)
   }
 
   /**
@@ -104,9 +101,9 @@ export class BridgetownNinjaKeys extends NinjaKeys {
   showResultsForQuery(query, maxResults = 10) {
     this.latestQuery = query
     if (this.alwaysShowResults === true || (query && query.length >= 1)) {
-      const results = this.__searchEngine.performSearch(query, this.snippetLength).slice(0, maxResults)
+      const results = this.__searchEngine.performSearch(query, this.snippetLength, false).slice(0, maxResults)
 
-      /** @type {import("konnors-ninja-keys").INinjaAction[]} */
+      /** @type {Array<Partial<import("konnors-ninja-keys").INinjaAction & { score: number }>>} */
       const actions = []
 
       if (results.length <= 0) {
@@ -119,7 +116,6 @@ export class BridgetownNinjaKeys extends NinjaKeys {
         if (action) actions.push(action)
       })
 
-      /** @type {import("konnors-ninja-keys").INinjaAction[]} */
       return actions
     }
 
@@ -128,9 +124,30 @@ export class BridgetownNinjaKeys extends NinjaKeys {
 
   /**
    * Override this for doing something with results.
+   * @param {{
+      id: string
+      url: string
+      content: string
+      preview: string
+      title: string
+      heading: string
+      categories: string
+      collection: {name: string}
+      score: number
+   }} result
    */
   transformResult (result) {
-    let { id, title, categories, url, content, collection } = result
+    let {
+      id,
+      url,
+      // content,
+      preview, // snipped content
+      // title,
+      categories,
+      heading, // snipped title
+      collection,
+      // score
+    } = result
 
     if (url.endsWith(".json")) {
       return
@@ -138,12 +155,15 @@ export class BridgetownNinjaKeys extends NinjaKeys {
 
     categories = categories.split(/[-_]/).map(capitalizeFirstLetter).join(" ")
 
+    /**
+     * @type {import("konnors-ninja-keys").INinjaAction}
+     */
     return {
       id,
-      title,
-      section: categories,
+      title: heading,
+      section: collection.name,
       href: url,
-      content
+      content: preview,
     }
   }
 }
