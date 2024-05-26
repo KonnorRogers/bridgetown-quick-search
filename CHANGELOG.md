@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.11.0 - 05/26/2024
+
+- fix(ninja-keys): adjust `maxResults` back up to 100.
+
 ## 3.10.0 - 05/26/2024
 
 - fix(ninja-keys): `snippet-length` attribute was not being read properly.

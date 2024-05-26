@@ -96,9 +96,9 @@ export class BridgetownNinjaKeys extends NinjaKeys {
 
   /**
    * @param {string} query
-   * @param {number} [maxResults=10]
+   * @param {number} [maxResults=100]
    */
-  showResultsForQuery(query, maxResults = 10) {
+  showResultsForQuery(query, maxResults = 100) {
     this.latestQuery = query
     if (this.alwaysShowResults === true || (query && query.length >= 1)) {
       const results = this.__searchEngine.performSearch(query, this.snippetLength, false).slice(0, maxResults)
