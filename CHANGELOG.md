@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.11.3 - 05/27/2024
+
+- dependencies(ninja-keys): Upgrade to 1.13.3
+
 ## 3.11.1 - 05/27/2024
 
 - fix(ninja-keys): Proper escaping and unescaping of HTML Entities
