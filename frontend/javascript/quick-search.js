@@ -3,6 +3,7 @@ import { css, html } from "lit"
 import { BaseElement } from "./base-element.js"
 import { unsafeHTML } from "lit/directives/unsafe-html.js"
 import SearchEngine from "./search_engine.js"
+import { escapeHTML } from "./html-utils.js"
 
 export class BridgetownSearchForm extends BaseElement {
   static baseName = "bridgetown-search-form"

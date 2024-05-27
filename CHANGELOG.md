@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.11.1 - 05/27/2024
+
+- fix(ninja-keys): Proper escaping and unescaping of HTML Entities
+
 ## 3.11.0 - 05/26/2024
 
 - fix(ninja-keys): adjust `maxResults` back up to 100.

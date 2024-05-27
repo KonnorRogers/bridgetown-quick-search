@@ -1,4 +1,5 @@
 import lunr from "lunr"
+import { escapeHTML, unescapeHTML } from "./html-utils.js"
 
 class SearchEngine {
   static endpoint = "/bridgetown_quick_search/index.json"
@@ -13,6 +14,7 @@ class SearchEngine {
       searchEngine
     }
   }
+
   async generateIndex(indexData) {
     this.index = lunr(function () {
       this.ref("id");
@@ -25,6 +27,7 @@ class SearchEngine {
 
       indexData.forEach(item => {
         if (item.content) {
+          item.content = unescapeHTML(item.content) // We'll escape it later, but we want to search against unescaped
           this.add(item);
         }
       })
@@ -40,7 +43,6 @@ class SearchEngine {
    */
   performSearch(query, snippetLength = 300, highlight = true) {
     if (highlight == null) { highlight = true }
-    console.log(highlight)
 
     if (this.index) {
       this.query = query
@@ -118,6 +120,7 @@ class SearchEngine {
     }
 
     if (highlight) {
+      output = escapeHTML(output)
       this.query.toLowerCase().split(" ").forEach(word => {
         if (word != "") {
           output = output.replace(
